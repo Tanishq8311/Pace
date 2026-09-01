@@ -83,7 +83,7 @@ export function OnboardingForm({ error }: { error?: string }) {
           <input
             name="heightCm"
             type="number"
-            step="0.1"
+            step="0.01"
             min={100}
             max={250}
             required
@@ -96,7 +96,7 @@ export function OnboardingForm({ error }: { error?: string }) {
           <input
             name="weightKg"
             type="number"
-            step="0.1"
+            step="0.01"
             min={30}
             max={300}
             required

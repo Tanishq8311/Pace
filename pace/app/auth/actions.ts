@@ -8,10 +8,16 @@ export async function signup(formData: FormData) {
   const password = String(formData.get("password"));
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
     redirect(`/signup?error=${encodeURIComponent(error.message)}`);
+  }
+
+  // With "Confirm email" off, signUp() returns an active session immediately -
+  // only show "check your email" when confirmation is actually required.
+  if (data.session) {
+    redirect("/onboarding");
   }
 
   redirect("/signup?checkEmail=1");
