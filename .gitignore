@@ -11,6 +11,8 @@ dist/
 *.log
 coverage/
 .supabase/
+*.tsbuildinfo
+next-env.d.ts
 
 # source books (copyrighted) and personal plan output (personal biometric data) -
 # reference material only, never committed. Facts get extracted into lib/content/*.json instead.
