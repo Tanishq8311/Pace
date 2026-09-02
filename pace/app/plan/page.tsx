@@ -93,9 +93,14 @@ export default async function PlanPage() {
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Your Numbers</h1>
-        <Link href="/training" className="text-sm underline">
-          Training split
-        </Link>
+        <div className="flex gap-4 text-sm">
+          <Link href="/training" className="underline">
+            Training split
+          </Link>
+          <Link href="/tracker" className="underline">
+            Tracker
+          </Link>
+        </div>
       </div>
       <table className="w-full border-collapse text-sm">
         <tbody>

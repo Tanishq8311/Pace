@@ -48,6 +48,23 @@ export type CycleStateInsert = Partial<
   Pick<CycleStateRow, "user_id"> &
   Partial<Pick<CycleStateRow, "cycle_started_at">>;
 
+export type DailyLogRow = {
+  user_id: string;
+  log_date: string;
+  weight_kg: number | null;
+  waist_cm: number | null;
+  steps: number | null;
+  water_l: number | null;
+  sleep_hours: number | null;
+  training_completed: boolean | null;
+  creatine_taken: boolean | null;
+};
+
+export type DailyLogInsert = Partial<
+  Omit<DailyLogRow, "user_id" | "log_date">
+> &
+  Pick<DailyLogRow, "user_id" | "log_date">;
+
 // Hand-written to match supabase/migrations/*.sql - a handful of small tables,
 // not worth wiring up `supabase gen types` for yet (see architecture plan).
 // Relationships/Views/Functions are required by postgrest-js's GenericSchema shape
@@ -65,6 +82,12 @@ export type Database = {
         Row: CycleStateRow;
         Insert: CycleStateInsert;
         Update: Partial<CycleStateInsert>;
+        Relationships: [];
+      };
+      daily_logs: {
+        Row: DailyLogRow;
+        Insert: DailyLogInsert;
+        Update: Partial<DailyLogInsert>;
         Relationships: [];
       };
     };
