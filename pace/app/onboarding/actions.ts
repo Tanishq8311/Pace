@@ -6,6 +6,7 @@ import { lookupFatLoss } from "@/lib/rules-engine/bodyfat-lookup";
 import { getPlanType } from "@/lib/rules-engine/plan-type";
 import type {
   ActivityLevel,
+  DietType,
   Gender,
   HungerTestResult,
 } from "@/lib/rules-engine/types";
@@ -36,6 +37,8 @@ export async function saveOnboarding(formData: FormData) {
     formData.get("trainingExperience")
   ) as TrainingExperience;
   const trainingDaysPerWeek = Number(formData.get("trainingDaysPerWeek"));
+  const dietType = String(formData.get("dietType")) as DietType;
+  const mealsPerDay = Number(formData.get("mealsPerDay"));
   const timezone = String(formData.get("timezone") || "UTC");
 
   let fatLoss;
@@ -72,6 +75,8 @@ export async function saveOnboarding(formData: FormData) {
     hunger_test_result: hungerTestResult,
     training_experience: trainingExperience,
     training_days_per_week: trainingDaysPerWeek,
+    diet_type: dietType,
+    meals_per_day: mealsPerDay,
     bmr,
     tdee,
     target_weight_kg: fatLoss!.targetWeightKg,

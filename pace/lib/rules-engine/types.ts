@@ -36,3 +36,5 @@ export interface MacroTargets {
 }
 
 export type CyclePhase = "deficit" | "dietBreak";
+
+export type DietType = "vegetarian" | "nonVegetarian";

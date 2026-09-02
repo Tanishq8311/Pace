@@ -1,6 +1,17 @@
 import { redirect } from "next/navigation";
 import { calculateMacros } from "@/lib/rules-engine/macros";
+import { getWeeklyMealPlan } from "@/lib/rules-engine/meal-matcher";
 import { createClient } from "@/lib/supabase/server";
+
+const DAY_NAMES = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
 export default async function PlanPage() {
   const supabase = await createClient();
@@ -27,6 +38,12 @@ export default async function PlanPage() {
     calories: profile.tdee,
   });
 
+  const weeklyMealPlan = getWeeklyMealPlan({
+    dietType: profile.diet_type,
+    dailyCalories: profile.tdee,
+    mealsPerDay: profile.meals_per_day,
+  });
+
   const rows: [string, string][] = [
     ["Age / Gender / Height / Weight", `${profile.age} / ${profile.gender} / ${profile.height_cm}cm / ${profile.weight_kg}kg`],
     ["BMR (Mifflin-St Jeor)", `${profile.bmr} kcal`],
@@ -51,10 +68,54 @@ export default async function PlanPage() {
           ))}
         </tbody>
       </table>
+      <div>
+        <h2 className="text-xl font-semibold">7-Day Meal Plan</h2>
+        <p className="text-sm text-gray-500">
+          {macros.proteinG}g protein / {macros.carbsG}g carbs /{" "}
+          {macros.fatG}g fat at {profile.tdee} kcal, split across{" "}
+          {profile.meals_per_day} meals - the book's own method: divide your
+          daily calories by number of meals, pick a template, adjust
+          portions to hit the number.
+        </p>
+      </div>
+
+      {weeklyMealPlan.map((day, i) => (
+        <div key={i}>
+          <h3 className="font-medium text-green-800">
+            {DAY_NAMES[i]}{" "}
+            <span className="font-normal text-gray-500">
+              (~{day.caloriesPerMeal} kcal/meal)
+            </span>
+          </h3>
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="text-left text-gray-600">
+                <th className="py-1 pr-3">Meal</th>
+                <th className="py-1 pr-3">Protein</th>
+                <th className="py-1 pr-3">Carbs</th>
+                <th className="py-1 pr-3">Fat</th>
+                <th className="py-1">Fibre</th>
+              </tr>
+            </thead>
+            <tbody>
+              {day.meals.map((meal, mi) => (
+                <tr key={mi} className="border-b">
+                  <td className="py-1 pr-3 font-medium">{meal.name}</td>
+                  <td className="py-1 pr-3">{meal.protein}</td>
+                  <td className="py-1 pr-3">{meal.carbs}</td>
+                  <td className="py-1 pr-3">{meal.fat}</td>
+                  <td className="py-1">{meal.fibre}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+
       <p className="text-sm text-gray-500">
-        Diet cycle, training split, and daily tracker are built next - this
-        page proves onboarding -&gt; rules engine -&gt; database is wired up
-        correctly.
+        Diet cycle (deficit/diet-break), training split, and daily tracker
+        are built next - calories above are your flat maintenance target,
+        not yet cycled.
       </p>
     </main>
   );

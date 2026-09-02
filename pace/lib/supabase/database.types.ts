@@ -1,5 +1,6 @@
 import type {
   ActivityLevel,
+  DietType,
   Gender,
   HungerTestResult,
   PlanType,
@@ -23,6 +24,8 @@ export type ProfileRow = {
   hunger_test_result: HungerTestResult;
   training_experience: TrainingExperience;
   training_days_per_week: number;
+  diet_type: DietType;
+  meals_per_day: number;
   bmr: number;
   tdee: number;
   target_weight_kg: number;

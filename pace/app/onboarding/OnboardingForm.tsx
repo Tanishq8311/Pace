@@ -196,6 +196,33 @@ export function OnboardingForm({ error }: { error?: string }) {
         </label>
       </fieldset>
 
+      <fieldset className="grid grid-cols-2 gap-4">
+        <label className="flex flex-col gap-1 text-sm">
+          Diet preference
+          <select
+            name="dietType"
+            defaultValue="vegetarian"
+            className="rounded border px-3 py-2"
+          >
+            <option value="vegetarian">Vegetarian</option>
+            <option value="nonVegetarian">Non-vegetarian</option>
+          </select>
+        </label>
+
+        <label className="flex flex-col gap-1 text-sm">
+          Meals per day
+          <input
+            name="mealsPerDay"
+            type="number"
+            min={3}
+            max={6}
+            defaultValue={5}
+            required
+            className="rounded border px-3 py-2"
+          />
+        </label>
+      </fieldset>
+
       <button type="submit" className="rounded bg-black px-4 py-2 text-white">
         Generate my plan
       </button>
