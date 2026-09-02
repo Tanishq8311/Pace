@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getTrainingSplit } from "@/lib/rules-engine/split-selector";
 import type { TrainingDaysPerWeek } from "@/lib/rules-engine/split-selector";
 import { createClient } from "@/lib/supabase/server";
+import { getExerciseInfo, getExerciseVideoUrl } from "@/lib/content/exercise-library";
 
 const DAY_NAMES = [
   "",
@@ -71,14 +72,41 @@ export default async function TrainingPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {session.exercises.map((ex, i) => (
-                    <tr key={i} className="border-b">
-                      <td className="py-1 pr-3 font-medium">{ex.name}</td>
-                      <td className="py-1">
-                        {ex.sets} x {ex.reps}
-                      </td>
-                    </tr>
-                  ))}
+                  {session.exercises.map((ex, i) => {
+                    const info = getExerciseInfo(ex.name);
+                    return (
+                      <tr key={i} className="border-b align-top">
+                        <td className="py-1 pr-3 font-medium">
+                          {info ? (
+                            <details>
+                              <summary className="cursor-pointer underline decoration-dotted">
+                                {ex.name}
+                              </summary>
+                              <div className="mt-2 max-w-sm space-y-2 font-normal text-gray-600">
+                                <ol className="list-decimal space-y-1 pl-4">
+                                  {info.steps.map((step, j) => (
+                                    <li key={j}>{step}</li>
+                                  ))}
+                                </ol>
+                                <iframe
+                                  className="aspect-video w-full rounded"
+                                  src={getExerciseVideoUrl(info)}
+                                  title={`${ex.name} demo`}
+                                  loading="lazy"
+                                  allowFullScreen
+                                />
+                              </div>
+                            </details>
+                          ) : (
+                            ex.name
+                          )}
+                        </td>
+                        <td className="py-1">
+                          {ex.sets} x {ex.reps}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             )}
