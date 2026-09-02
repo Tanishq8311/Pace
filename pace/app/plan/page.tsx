@@ -1,18 +1,20 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppShell } from "@/components/AppShell";
+import { CycleProgress } from "@/components/CycleProgress";
+import { StatTile } from "@/components/StatTile";
+import { WeeklyMealPlan, type DayPlan } from "@/components/WeeklyMealPlan";
+import { getCyclePosition, CYCLE_LENGTH_DAYS } from "@/lib/rules-engine/cycle";
 import { getCaloriesForPhase } from "@/lib/rules-engine/deficit";
 import { calculateMacros } from "@/lib/rules-engine/macros";
 import { getDailyMealPlan } from "@/lib/rules-engine/meal-matcher";
-import { getCyclePosition } from "@/lib/rules-engine/cycle";
 import { createClient } from "@/lib/supabase/server";
 
-const DAY_LABEL = new Intl.DateTimeFormat("en-US", {
+const SHORT_DAY = new Intl.DateTimeFormat("en-US", { weekday: "short" });
+const FULL_DAY = new Intl.DateTimeFormat("en-US", {
   weekday: "long",
   month: "short",
   day: "numeric",
 });
-
-const PHASE_LABEL = { deficit: "Deficit", dietBreak: "Diet Break" } as const;
 
 export default async function PlanPage() {
   const supabase = await createClient();
@@ -43,35 +45,8 @@ export default async function PlanPage() {
 
   const today = new Date();
   const todayPosition = getCyclePosition(cycleStartedAt, today);
-  const todayCalories = getCaloriesForPhase(
-    profile.tdee,
-    profile.plan_type,
-    todayPosition.phase
-  );
-  const todayMacros = calculateMacros({
-    weightKg: profile.weight_kg,
-    calories: todayCalories,
-  });
 
-  const rows: [string, string][] = [
-    ["Age / Gender / Height / Weight", `${profile.age} / ${profile.gender} / ${profile.height_cm}cm / ${profile.weight_kg}kg`],
-    ["BMR (Mifflin-St Jeor)", `${profile.bmr} kcal`],
-    ["Maintenance (TDEE)", `${profile.tdee} kcal/day`],
-    ["Current body fat (chart)", `${profile.body_fat_chart_category}%`],
-    ["Target body fat", `${profile.target_bodyfat_pct}%`],
-    ["Target weight", `${profile.target_weight_kg} kg`],
-    ["Plan type", profile.plan_type],
-    [
-      "Cycle position",
-      `Day ${todayPosition.dayInCycle} of 21 (${PHASE_LABEL[todayPosition.phase]}, day ${todayPosition.dayInPhase} of that phase)`,
-    ],
-    [
-      "Today's calories / macros",
-      `${todayCalories} kcal - ${todayMacros.proteinG}g protein / ${todayMacros.carbsG}g carbs / ${todayMacros.fatG}g fat`,
-    ],
-  ];
-
-  const next7Days = Array.from({ length: 7 }, (_, i) => {
+  const days: DayPlan[] = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(today);
     date.setDate(date.getDate() + i);
     const position = getCyclePosition(cycleStartedAt, date);
@@ -86,81 +61,77 @@ export default async function PlanPage() {
       mealsPerDay: profile.meals_per_day,
       dayIndex: i,
     });
-    return { date, position, calories, mealPlan };
+    return {
+      shortLabel: i === 0 ? "Today" : SHORT_DAY.format(date),
+      dateLabel: FULL_DAY.format(date),
+      phase: position.phase,
+      calories,
+      caloriesPerMeal: mealPlan.caloriesPerMeal,
+      meals: mealPlan.meals,
+    };
+  });
+
+  const todayMacros = calculateMacros({
+    weightKg: profile.weight_kg,
+    calories: days[0].calories,
   });
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Your Numbers</h1>
-        <div className="flex gap-4 text-sm">
-          <Link href="/training" className="underline">
-            Training split
-          </Link>
-          <Link href="/tracker" className="underline">
-            Tracker
-          </Link>
+    <AppShell>
+      <main className="page-shell">
+        <div className="animate-fade-up">
+          <h1 className="text-2xl font-extrabold tracking-tight">
+            Your Plan
+          </h1>
+          <p className="mt-1 text-sm text-muted">
+            {profile.target_weight_kg}kg target ·{" "}
+            {profile.plan_type === "aggressive" ? "Aggressive" : "Sustainable"}{" "}
+            pace
+          </p>
         </div>
-      </div>
-      <table className="w-full border-collapse text-sm">
-        <tbody>
-          {rows.map(([label, value]) => (
-            <tr key={label} className="border-b">
-              <td className="py-2 pr-4 font-medium text-gray-600">{label}</td>
-              <td className="py-2">{value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      <div>
-        <h2 className="text-xl font-semibold">Next 7 Days</h2>
-        <p className="text-sm text-gray-500">
-          Calories shift automatically between deficit and diet-break days as
-          your cycle progresses - the book&apos;s own method: divide the
-          day&apos;s calories by number of meals, pick a template, adjust
-          portions to hit the number.
-        </p>
-      </div>
+        <CycleProgress
+          dayInCycle={todayPosition.dayInCycle}
+          cycleLength={CYCLE_LENGTH_DAYS}
+          phase={todayPosition.phase}
+          dayInPhase={todayPosition.dayInPhase}
+        />
 
-      {next7Days.map(({ date, position, calories, mealPlan }, i) => (
-        <div key={i}>
-          <h3 className="font-medium text-green-800">
-            {DAY_LABEL.format(date)}{" "}
-            <span className="font-normal text-gray-500">
-              - {PHASE_LABEL[position.phase]}, {calories} kcal (~
-              {mealPlan.caloriesPerMeal} kcal/meal)
-            </span>
-          </h3>
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="text-left text-gray-600">
-                <th className="py-1 pr-3">Meal</th>
-                <th className="py-1 pr-3">Protein</th>
-                <th className="py-1 pr-3">Carbs</th>
-                <th className="py-1 pr-3">Fat</th>
-                <th className="py-1">Fibre</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mealPlan.meals.map((meal, mi) => (
-                <tr key={mi} className="border-b">
-                  <td className="py-1 pr-3 font-medium">{meal.name}</td>
-                  <td className="py-1 pr-3">{meal.protein}</td>
-                  <td className="py-1 pr-3">{meal.carbs}</td>
-                  <td className="py-1 pr-3">{meal.fat}</td>
-                  <td className="py-1">{meal.fibre}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-2 gap-3">
+          <StatTile label="Today's calories" value={`${days[0].calories}`} sub="kcal" />
+          <StatTile label="Protein" value={`${todayMacros.proteinG}g`} />
+          <StatTile label="Carbs" value={`${todayMacros.carbsG}g`} />
+          <StatTile label="Fat" value={`${todayMacros.fatG}g`} />
         </div>
-      ))}
 
-      <p className="text-sm text-gray-500">
-        See your <Link href="/training" className="underline">training split</Link>{" "}
-        for exercises. Daily tracker is built next.
-      </p>
-    </main>
+        <div className="card flex flex-col gap-2">
+          <h2 className="section-title text-sm">Your Numbers</h2>
+          <dl className="grid grid-cols-2 gap-y-2 text-sm">
+            <dt className="text-muted">BMR</dt>
+            <dd className="text-right font-medium">{profile.bmr} kcal</dd>
+            <dt className="text-muted">Maintenance (TDEE)</dt>
+            <dd className="text-right font-medium">{profile.tdee} kcal</dd>
+            <dt className="text-muted">Body fat</dt>
+            <dd className="text-right font-medium">
+              {profile.body_fat_chart_category}% → {profile.target_bodyfat_pct}%
+            </dd>
+            <dt className="text-muted">Weight</dt>
+            <dd className="text-right font-medium">
+              {profile.weight_kg}kg → {profile.target_weight_kg}kg
+            </dd>
+          </dl>
+        </div>
+
+        <div>
+          <h2 className="section-title mb-1">Meal Plan</h2>
+          <p className="mb-3 text-xs text-muted">
+            Calories shift automatically between deficit and diet-break days.
+            Pick a template, adjust portions in your tracking app to hit the
+            number.
+          </p>
+          <WeeklyMealPlan days={days} />
+        </div>
+      </main>
+    </AppShell>
   );
 }

@@ -1,5 +1,8 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppShell } from "@/components/AppShell";
+import { CheckCircleIcon, CircleIcon } from "@/components/icons";
+import { StatTile } from "@/components/StatTile";
+import { SubmitButton } from "@/components/SubmitButton";
 import {
   averageWeight,
   getLocalDateString,
@@ -62,170 +65,172 @@ export default async function TrackerPage({
   const checklist = [
     { label: "7-9 hr sleep", done: (todayLog?.sleep_hours ?? 0) >= 7 },
     { label: "8,000-10,000 steps", done: (todayLog?.steps ?? 0) >= 8000 },
-    { label: "Training logged (or rest)", done: todayLog?.training_completed === true },
+    {
+      label: "Training logged (or rest)",
+      done: todayLog?.training_completed === true,
+    },
     { label: "3-4 L water", done: (todayLog?.water_l ?? 0) >= 3 },
     { label: "Creatine taken", done: todayLog?.creatine_taken === true },
   ];
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Tracker</h1>
-        <Link href="/plan" className="text-sm underline">
-          Back to plan
-        </Link>
-      </div>
+    <AppShell>
+      <main className="page-shell">
+        <div className="animate-fade-up">
+          <h1 className="font-display text-2xl font-extrabold tracking-tight">
+            Tracker
+          </h1>
+          <p className="mt-1 text-sm text-muted">Today — {today}</p>
+        </div>
 
-      {error && (
-        <p className="rounded bg-red-50 p-3 text-sm text-red-700">{error}</p>
-      )}
+        {error && <p className="pill w-fit text-danger">{error}</p>}
 
-      <form action={saveDailyLog} className="flex flex-col gap-4">
-        <input type="hidden" name="logDate" value={today} />
-        <h2 className="text-lg font-semibold">Today ({today})</h2>
-        <fieldset className="grid grid-cols-2 gap-4">
-          <label className="flex flex-col gap-1 text-sm">
-            Weight (kg)
-            <input
-              name="weightKg"
-              type="number"
-              step="0.01"
-              defaultValue={todayLog?.weight_kg ?? ""}
-              className="rounded border px-3 py-2"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-sm">
-            Waist (cm)
-            <input
-              name="waistCm"
-              type="number"
-              step="0.1"
-              defaultValue={todayLog?.waist_cm ?? ""}
-              className="rounded border px-3 py-2"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-sm">
-            Steps
-            <input
-              name="steps"
-              type="number"
-              defaultValue={todayLog?.steps ?? ""}
-              className="rounded border px-3 py-2"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-sm">
-            Water (L)
-            <input
-              name="waterL"
-              type="number"
-              step="0.1"
-              defaultValue={todayLog?.water_l ?? ""}
-              className="rounded border px-3 py-2"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-sm">
-            Sleep (hours)
-            <input
-              name="sleepHours"
-              type="number"
-              step="0.1"
-              defaultValue={todayLog?.sleep_hours ?? ""}
-              className="rounded border px-3 py-2"
-            />
-          </label>
-        </fieldset>
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            name="trainingCompleted"
-            type="checkbox"
-            defaultChecked={todayLog?.training_completed ?? false}
+        <div className="grid grid-cols-2 gap-3">
+          <StatTile
+            label="Previous week avg"
+            value={previousAvg !== null ? `${previousAvg.toFixed(1)}kg` : "—"}
           />
-          Training session done (or scheduled rest)
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            name="creatineTaken"
-            type="checkbox"
-            defaultChecked={todayLog?.creatine_taken ?? false}
+          <StatTile
+            label="Latest week avg"
+            value={latestAvg !== null ? `${latestAvg.toFixed(1)}kg` : "—"}
           />
-          Creatine taken
-        </label>
-        <button type="submit" className="rounded bg-black px-4 py-2 text-white">
-          Save today&apos;s log
-        </button>
-      </form>
+        </div>
+        {previousAvg !== null &&
+          latestAvg !== null &&
+          latestAvg >= previousAvg && (
+            <p className="rounded-xl border-2 border-border bg-sage/30 p-3 text-xs font-medium text-foreground">
+              No drop in your weekly average — expected sometimes, not
+              failure. On the aggressive plan, logging today already
+              recalculated your maintenance at your current weight and
+              restarted the cycle.
+            </p>
+          )}
 
-      <div>
-        <h2 className="text-lg font-semibold">Daily Checklist</h2>
-        <ul className="text-sm">
+        <div className="card flex flex-col gap-1">
+          <h2 className="section-title mb-1 text-sm">Daily Checklist</h2>
           {checklist.map((item) => (
-            <li key={item.label} className="flex items-center gap-2 py-1">
-              <span>{item.done ? "✅" : "⬜"}</span>
-              {item.label}
-            </li>
+            <div key={item.label} className="flex items-center gap-2.5 py-1.5">
+              {item.done ? (
+                <CheckCircleIcon className="h-5 w-5 text-foreground" />
+              ) : (
+                <CircleIcon className="h-5 w-5 text-border" />
+              )}
+              <span
+                className={`text-sm ${item.done ? "text-foreground" : "text-muted"}`}
+              >
+                {item.label}
+              </span>
+            </div>
           ))}
-        </ul>
-      </div>
+        </div>
 
-      <div>
-        <h2 className="text-lg font-semibold">Weekly Average</h2>
-        <table className="w-full border-collapse text-sm">
-          <tbody>
-            <tr className="border-b">
-              <td className="py-2 pr-4 font-medium text-gray-600">
-                Previous week avg
-              </td>
-              <td className="py-2">
-                {previousAvg !== null ? `${previousAvg.toFixed(1)} kg` : "-"}
-              </td>
-            </tr>
-            <tr className="border-b">
-              <td className="py-2 pr-4 font-medium text-gray-600">
-                Latest week avg
-              </td>
-              <td className="py-2">
-                {latestAvg !== null ? `${latestAvg.toFixed(1)} kg` : "-"}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        {previousAvg !== null && latestAvg !== null && latestAvg >= previousAvg && (
-          <p className="mt-2 text-sm text-amber-700">
-            No drop in your weekly average - this is expected sometimes, not
-            failure. On the aggressive plan, logging today already
-            recalculated your maintenance at your current weight and
-            restarted the cycle.
-          </p>
-        )}
-      </div>
+        <form action={saveDailyLog} className="card flex flex-col gap-4">
+          <input type="hidden" name="logDate" value={today} />
+          <h2 className="section-title text-sm">Log today</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <label className="flex flex-col gap-1.5">
+              <span className="field-label">Weight (kg)</span>
+              <input
+                name="weightKg"
+                type="number"
+                step="0.01"
+                defaultValue={todayLog?.weight_kg ?? ""}
+                className="field-input"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="field-label">Waist (cm)</span>
+              <input
+                name="waistCm"
+                type="number"
+                step="0.1"
+                defaultValue={todayLog?.waist_cm ?? ""}
+                className="field-input"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="field-label">Steps</span>
+              <input
+                name="steps"
+                type="number"
+                defaultValue={todayLog?.steps ?? ""}
+                className="field-input"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="field-label">Water (L)</span>
+              <input
+                name="waterL"
+                type="number"
+                step="0.1"
+                defaultValue={todayLog?.water_l ?? ""}
+                className="field-input"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="field-label">Sleep (hours)</span>
+              <input
+                name="sleepHours"
+                type="number"
+                step="0.1"
+                defaultValue={todayLog?.sleep_hours ?? ""}
+                className="field-input"
+              />
+            </label>
+          </div>
+          <label className="flex items-center gap-2 text-sm text-foreground">
+            <input
+              name="trainingCompleted"
+              type="checkbox"
+              defaultChecked={todayLog?.training_completed ?? false}
+              className="h-4 w-4 accent-[var(--yellow)]"
+            />
+            Training session done (or scheduled rest)
+          </label>
+          <label className="flex items-center gap-2 text-sm text-foreground">
+            <input
+              name="creatineTaken"
+              type="checkbox"
+              defaultChecked={todayLog?.creatine_taken ?? false}
+              className="h-4 w-4 accent-[var(--yellow)]"
+            />
+            Creatine taken
+          </label>
+          <SubmitButton className="btn-primary" pendingText="Saving…">
+            Save today&apos;s log
+          </SubmitButton>
+        </form>
 
-      <div>
-        <h2 className="text-lg font-semibold">Recent Logs</h2>
-        <table className="w-full border-collapse text-sm">
-          <thead>
-            <tr className="text-left text-gray-600">
-              <th className="py-1 pr-3">Date</th>
-              <th className="py-1 pr-3">Weight</th>
-              <th className="py-1 pr-3">Steps</th>
-              <th className="py-1">Training</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(logs ?? []).map((log) => (
-              <tr key={log.log_date} className="border-b">
-                <td className="py-1 pr-3">{log.log_date}</td>
-                <td className="py-1 pr-3">
-                  {log.weight_kg !== null ? `${log.weight_kg} kg` : "-"}
-                </td>
-                <td className="py-1 pr-3">{log.steps ?? "-"}</td>
-                <td className="py-1">
-                  {log.training_completed === true ? "Done" : "-"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </main>
+        <div className="card flex flex-col gap-1">
+          <h2 className="section-title mb-1 text-sm">Recent Logs</h2>
+          {(logs ?? []).length === 0 && (
+            <p className="text-sm text-muted">No logs yet.</p>
+          )}
+          {(logs ?? []).map((log) => (
+            <div
+              key={log.log_date}
+              className="flex items-center justify-between border-b border-border py-2 text-sm last:border-0"
+            >
+              <span className="text-muted">{log.log_date}</span>
+              <span className="font-medium">
+                {log.weight_kg !== null ? `${log.weight_kg}kg` : "—"}
+              </span>
+              <span className="text-muted">
+                {log.steps !== null ? `${log.steps} steps` : "—"}
+              </span>
+              <span
+                className={
+                  log.training_completed === true
+                    ? "text-foreground font-bold"
+                    : "text-muted"
+                }
+              >
+                {log.training_completed === true ? "Trained" : "—"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </main>
+    </AppShell>
   );
 }

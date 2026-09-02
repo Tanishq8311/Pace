@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { login } from "@/app/auth/actions";
+import { SubmitButton } from "@/components/SubmitButton";
 
 export default async function LoginPage({
   searchParams,
@@ -9,46 +10,43 @@ export default async function LoginPage({
   const { error } = await searchParams;
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 p-6">
-      <h1 className="text-2xl font-semibold">Log in to Pace</h1>
+    <main className="flex min-h-screen flex-col justify-center px-6 py-10">
+      <div className="animate-fade-up mx-auto flex w-full max-w-xs flex-col gap-6">
+        <div>
+          <h1 className="font-display text-2xl font-extrabold tracking-tight">
+            Log in to Pace
+          </h1>
+          <p className="mt-1 text-sm text-muted">Welcome back.</p>
+        </div>
 
-      {error && (
-        <p className="rounded bg-red-50 p-3 text-sm text-red-700">{error}</p>
-      )}
+        {error && <p className="pill w-fit text-danger">{error}</p>}
 
-      <form action={login} className="flex flex-col gap-4">
-        <label className="flex flex-col gap-1 text-sm">
-          Email
-          <input
-            name="email"
-            type="email"
-            required
-            className="rounded border px-3 py-2"
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          Password
-          <input
-            name="password"
-            type="password"
-            required
-            className="rounded border px-3 py-2"
-          />
-        </label>
-        <button
-          type="submit"
-          className="rounded bg-black px-4 py-2 text-white"
-        >
-          Log in
-        </button>
-      </form>
+        <form action={login} className="flex flex-col gap-4">
+          <label className="flex flex-col gap-1.5">
+            <span className="field-label">Email</span>
+            <input name="email" type="email" required className="field-input" />
+          </label>
+          <label className="flex flex-col gap-1.5">
+            <span className="field-label">Password</span>
+            <input
+              name="password"
+              type="password"
+              required
+              className="field-input"
+            />
+          </label>
+          <SubmitButton className="btn-primary mt-2" pendingText="Logging in…">
+            Log in
+          </SubmitButton>
+        </form>
 
-      <p className="text-sm text-gray-600">
-        No account?{" "}
-        <Link href="/signup" className="underline">
-          Sign up
-        </Link>
-      </p>
+        <p className="text-center text-sm text-muted">
+          No account?{" "}
+          <Link href="/signup" className="font-bold text-foreground underline">
+            Sign up
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }
