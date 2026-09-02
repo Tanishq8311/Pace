@@ -47,9 +47,12 @@ export async function saveDailyLog(formData: FormData) {
 
   await checkAndRecalculateIfStalled(user.id);
 
+  // No redirect here: revalidatePath alone re-renders the current route with
+  // fresh data in the same round-trip (see Next's server-actions guide).
+  // redirect()'ing to this same bare path was serving the stale pre-save RSC
+  // payload instead of the fresh one - a real bug caught by the live test.
   revalidatePath("/tracker");
   revalidatePath("/plan");
-  redirect("/tracker");
 }
 
 // Stall rule: no weight loss for 2 full weeks on the aggressive plan ->
