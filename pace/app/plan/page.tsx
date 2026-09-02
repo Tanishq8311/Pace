@@ -1,17 +1,18 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getCaloriesForPhase } from "@/lib/rules-engine/deficit";
 import { calculateMacros } from "@/lib/rules-engine/macros";
-import { getWeeklyMealPlan } from "@/lib/rules-engine/meal-matcher";
+import { getDailyMealPlan } from "@/lib/rules-engine/meal-matcher";
+import { getCyclePosition } from "@/lib/rules-engine/cycle";
 import { createClient } from "@/lib/supabase/server";
 
-const DAY_NAMES = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
+const DAY_LABEL = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "short",
+  day: "numeric",
+});
+
+const PHASE_LABEL = { deficit: "Deficit", dietBreak: "Diet Break" } as const;
 
 export default async function PlanPage() {
   const supabase = await createClient();
@@ -23,25 +24,33 @@ export default async function PlanPage() {
     redirect("/login");
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
+  const [{ data: profile }, { data: cycleState }] = await Promise.all([
+    supabase.from("profiles").select("*").eq("id", user.id).single(),
+    supabase
+      .from("cycle_state")
+      .select("*")
+      .eq("user_id", user.id)
+      .maybeSingle(),
+  ]);
 
   if (!profile) {
     redirect("/onboarding");
   }
 
-  const macros = calculateMacros({
-    weightKg: profile.weight_kg,
-    calories: profile.tdee,
-  });
+  const cycleStartedAt = cycleState
+    ? new Date(cycleState.cycle_started_at)
+    : new Date();
 
-  const weeklyMealPlan = getWeeklyMealPlan({
-    dietType: profile.diet_type,
-    dailyCalories: profile.tdee,
-    mealsPerDay: profile.meals_per_day,
+  const today = new Date();
+  const todayPosition = getCyclePosition(cycleStartedAt, today);
+  const todayCalories = getCaloriesForPhase(
+    profile.tdee,
+    profile.plan_type,
+    todayPosition.phase
+  );
+  const todayMacros = calculateMacros({
+    weightKg: profile.weight_kg,
+    calories: todayCalories,
   });
 
   const rows: [string, string][] = [
@@ -52,12 +61,42 @@ export default async function PlanPage() {
     ["Target body fat", `${profile.target_bodyfat_pct}%`],
     ["Target weight", `${profile.target_weight_kg} kg`],
     ["Plan type", profile.plan_type],
-    ["Protein / Carbs / Fat at maintenance", `${macros.proteinG}g / ${macros.carbsG}g / ${macros.fatG}g`],
+    [
+      "Cycle position",
+      `Day ${todayPosition.dayInCycle} of 21 (${PHASE_LABEL[todayPosition.phase]}, day ${todayPosition.dayInPhase} of that phase)`,
+    ],
+    [
+      "Today's calories / macros",
+      `${todayCalories} kcal - ${todayMacros.proteinG}g protein / ${todayMacros.carbsG}g carbs / ${todayMacros.fatG}g fat`,
+    ],
   ];
+
+  const next7Days = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(today);
+    date.setDate(date.getDate() + i);
+    const position = getCyclePosition(cycleStartedAt, date);
+    const calories = getCaloriesForPhase(
+      profile.tdee,
+      profile.plan_type,
+      position.phase
+    );
+    const mealPlan = getDailyMealPlan({
+      dietType: profile.diet_type,
+      dailyCalories: calories,
+      mealsPerDay: profile.meals_per_day,
+      dayIndex: i,
+    });
+    return { date, position, calories, mealPlan };
+  });
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
-      <h1 className="text-2xl font-semibold">Your Numbers</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">Your Numbers</h1>
+        <Link href="/training" className="text-sm underline">
+          Training split
+        </Link>
+      </div>
       <table className="w-full border-collapse text-sm">
         <tbody>
           {rows.map(([label, value]) => (
@@ -68,23 +107,24 @@ export default async function PlanPage() {
           ))}
         </tbody>
       </table>
+
       <div>
-        <h2 className="text-xl font-semibold">7-Day Meal Plan</h2>
+        <h2 className="text-xl font-semibold">Next 7 Days</h2>
         <p className="text-sm text-gray-500">
-          {macros.proteinG}g protein / {macros.carbsG}g carbs /{" "}
-          {macros.fatG}g fat at {profile.tdee} kcal, split across{" "}
-          {profile.meals_per_day} meals - the book's own method: divide your
-          daily calories by number of meals, pick a template, adjust
+          Calories shift automatically between deficit and diet-break days as
+          your cycle progresses - the book&apos;s own method: divide the
+          day&apos;s calories by number of meals, pick a template, adjust
           portions to hit the number.
         </p>
       </div>
 
-      {weeklyMealPlan.map((day, i) => (
+      {next7Days.map(({ date, position, calories, mealPlan }, i) => (
         <div key={i}>
           <h3 className="font-medium text-green-800">
-            {DAY_NAMES[i]}{" "}
+            {DAY_LABEL.format(date)}{" "}
             <span className="font-normal text-gray-500">
-              (~{day.caloriesPerMeal} kcal/meal)
+              - {PHASE_LABEL[position.phase]}, {calories} kcal (~
+              {mealPlan.caloriesPerMeal} kcal/meal)
             </span>
           </h3>
           <table className="w-full border-collapse text-sm">
@@ -98,7 +138,7 @@ export default async function PlanPage() {
               </tr>
             </thead>
             <tbody>
-              {day.meals.map((meal, mi) => (
+              {mealPlan.meals.map((meal, mi) => (
                 <tr key={mi} className="border-b">
                   <td className="py-1 pr-3 font-medium">{meal.name}</td>
                   <td className="py-1 pr-3">{meal.protein}</td>
@@ -113,9 +153,8 @@ export default async function PlanPage() {
       ))}
 
       <p className="text-sm text-gray-500">
-        Diet cycle (deficit/diet-break), training split, and daily tracker
-        are built next - calories above are your flat maintenance target,
-        not yet cycled.
+        See your <Link href="/training" className="underline">training split</Link>{" "}
+        for exercises. Daily tracker is built next.
       </p>
     </main>
   );

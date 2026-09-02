@@ -184,15 +184,15 @@ export function OnboardingForm({ error }: { error?: string }) {
 
         <label className="flex flex-col gap-1 text-sm">
           Training days/week
-          <input
+          <select
             name="trainingDaysPerWeek"
-            type="number"
-            min={2}
-            max={6}
-            defaultValue={4}
-            required
+            defaultValue="4"
             className="rounded border px-3 py-2"
-          />
+          >
+            <option value="3">3 days</option>
+            <option value="4">4 days</option>
+            <option value="5">5 days</option>
+          </select>
         </label>
       </fieldset>
 

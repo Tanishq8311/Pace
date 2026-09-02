@@ -1,0 +1,499 @@
+{
+  "male": {
+    "beginner": {
+      "3": {
+        "name": "3-Day Split (Beginner)",
+        "progression": [
+          { "week": "Week 1", "focus": "Learn movements, light weights" },
+          { "week": "Week 2", "focus": "Add 1-2 reps per exercise" },
+          { "week": "Week 3", "focus": "Increase weight slightly (2-5%)" },
+          { "week": "Week 4", "focus": "Maintain weight, improve form and control" },
+          { "week": "Week 5", "focus": "Add 1 extra set to main lifts" },
+          { "week": "Week 6", "focus": "Increase weight again (2-5%)" },
+          { "week": "Week 7", "focus": "Train closer to failure (1-2 reps in reserve)" },
+          { "week": "Week 8", "focus": "Deload: reduce volume, focus on recovery" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Lower Body", "exercises": [
+            { "name": "Back Squat", "sets": 3, "reps": "8-10" },
+            { "name": "Leg Press", "sets": 3, "reps": "10-12" },
+            { "name": "Lying Leg Curl", "sets": 2, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 3, "reps": "15" }
+          ]},
+          { "dayOfWeek": 3, "label": "Upper Body", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 3, "reps": "8" },
+            { "name": "Lat Pulldown", "sets": 3, "reps": "10" },
+            { "name": "Seated Dumbbell Shoulder Press", "sets": 2, "reps": "10" },
+            { "name": "Seated Cable Row", "sets": 2, "reps": "12" },
+            { "name": "Triceps Pushdown", "sets": 2, "reps": "12" },
+            { "name": "Dumbbell Curls", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Full Body", "exercises": [
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8" },
+            { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10" },
+            { "name": "Walking Lunges", "sets": 2, "reps": "10/leg" },
+            { "name": "Seated Cable Row", "sets": 2, "reps": "12" },
+            { "name": "Plank", "sets": 3, "reps": "30 sec" }
+          ]}
+        ]
+      },
+      "4": {
+        "name": "4-Day Split (Beginner)",
+        "progression": [
+          { "week": "Week 1", "focus": "Learn structure, moderate weights" },
+          { "week": "Week 2", "focus": "Add 1-2 reps per set" },
+          { "week": "Week 3", "focus": "Increase load slightly (2-5%)" },
+          { "week": "Week 4", "focus": "Maintain weight, improve form" },
+          { "week": "Week 5", "focus": "Add 1 extra set to main lifts" },
+          { "week": "Week 6", "focus": "Increase load again (2-5%)" },
+          { "week": "Week 7", "focus": "Train closer to failure (1-2 reps in reserve)" },
+          { "week": "Week 8", "focus": "Deload: reduce volume and intensity" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Upper Body", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 3, "reps": "8" },
+            { "name": "Lat Pulldown", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Lateral Raises", "sets": 2, "reps": "15" },
+            { "name": "Triceps Pushdown", "sets": 2, "reps": "12" },
+            { "name": "Dumbbell Curls", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Lower Body", "exercises": [
+            { "name": "Back Squat", "sets": 3, "reps": "8" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Lying Leg Curl", "sets": 2, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 3, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Upper Body", "exercises": [
+            { "name": "Incline DB Press", "sets": 3, "reps": "10" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "12" },
+            { "name": "Dumbbell Shoulder Press", "sets": 2, "reps": "10" },
+            { "name": "EZ-Bar Curl", "sets": 2, "reps": "12" },
+            { "name": "Overhead Triceps Extension", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Lower Body", "exercises": [
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8" },
+            { "name": "Goblet Squat", "sets": 3, "reps": "12" },
+            { "name": "Walking Lunges", "sets": 2, "reps": "10/leg" },
+            { "name": "Seated Calf Raises", "sets": 3, "reps": "15" }
+          ]}
+        ]
+      },
+      "5": {
+        "name": "Bro Split (Beginner)",
+        "progression": [
+          { "week": "Week 1", "focus": "Learn exercises, light weights, perfect form" },
+          { "week": "Week 2", "focus": "Add 1-2 reps per set" },
+          { "week": "Week 3", "focus": "Increase weight slightly (2-5%)" },
+          { "week": "Week 4", "focus": "Maintain weight, improve control and tempo" },
+          { "week": "Week 5", "focus": "Add 1 extra set to main exercises" },
+          { "week": "Week 6", "focus": "Increase weight again (2-5%)" },
+          { "week": "Week 7", "focus": "Push closer to failure (1-2 reps in reserve)" },
+          { "week": "Week 8", "focus": "Deload week: reduce volume, focus on recovery" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Chest", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 3, "reps": "8-10" },
+            { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Chest Fly", "sets": 2, "reps": "12" },
+            { "name": "Push-Ups (Optional Finisher)", "sets": 2, "reps": "AMRAP" }
+          ]},
+          { "dayOfWeek": 2, "label": "Back", "exercises": [
+            { "name": "Lat Pulldown", "sets": 3, "reps": "10" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "12" },
+            { "name": "One-Arm Dumbbell Row", "sets": 2, "reps": "10/arm" },
+            { "name": "Straight-Arm Pulldown", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 3, "label": "Shoulders", "exercises": [
+            { "name": "Seated Dumbbell Shoulder Press", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Front Raises", "sets": 2, "reps": "12" },
+            { "name": "Rear Delt Fly (Machine/DB)", "sets": 2, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Arms (Biceps + Triceps)", "exercises": [
+            { "name": "Barbell Curl", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Hammer Curl", "sets": 2, "reps": "12" },
+            { "name": "Triceps Pushdown", "sets": 3, "reps": "12" },
+            { "name": "Overhead Dumbbell Extension", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Legs", "exercises": [
+            { "name": "Back Squat", "sets": 3, "reps": "8-10" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Lying Leg Curl", "sets": 2, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 3, "reps": "15" }
+          ]}
+        ]
+      }
+    },
+    "intermediate": {
+      "3": {
+        "name": "3-Day Split (Intermediate)",
+        "progression": [
+          { "week": "Weeks 1-2", "focus": "Re-establish working weights, clean execution" },
+          { "week": "Weeks 3-4", "focus": "Add reps within target ranges" },
+          { "week": "Weeks 5-6", "focus": "Increase load by 2.5-5%" },
+          { "week": "Week 7", "focus": "Maintain load, focus on tempo and control" },
+          { "week": "Weeks 8-9", "focus": "Add volume to main lifts (extra set)" },
+          { "week": "Weeks 10-11", "focus": "Push intensity (1-2 reps in reserve)" },
+          { "week": "Week 12", "focus": "Deload: reduce volume and intensity" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Lower Body", "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "6-8" },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8-10" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Seated Leg Curl", "sets": 3, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 3, "label": "Upper Body", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 4, "reps": "6-8" },
+            { "name": "Lat Pulldown", "sets": 3, "reps": "8-10" },
+            { "name": "Seated DB Shoulder Press", "sets": 3, "reps": "8-10" },
+            { "name": "Chest-Supported Row", "sets": 3, "reps": "10" },
+            { "name": "Triceps Pushdown", "sets": 3, "reps": "12" },
+            { "name": "Dumbbell Curls", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Full Body", "exercises": [
+            { "name": "Deadlift", "sets": 3, "reps": "5" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "8-10" },
+            { "name": "Walking Lunges", "sets": 3, "reps": "10/leg" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "10" },
+            { "name": "Hanging Leg Raises", "sets": 3, "reps": "12" }
+          ]}
+        ]
+      },
+      "4": {
+        "name": "4-Day Split (Intermediate)",
+        "progression": [
+          { "week": "Weeks 1-2", "focus": "Establish working weights, refine technique" },
+          { "week": "Weeks 3-4", "focus": "Increase reps within prescribed ranges" },
+          { "week": "Weeks 5-6", "focus": "Add load (2.5-5%) to main lifts" },
+          { "week": "Week 7", "focus": "Maintain load, improve tempo and control" },
+          { "week": "Weeks 8-9", "focus": "Add volume (extra set on compound lifts)" },
+          { "week": "Weeks 10-11", "focus": "Push intensity (1-2 reps in reserve)" },
+          { "week": "Week 12", "focus": "Deload: reduce volume and intensity" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Upper Body - A", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 4, "reps": "6-8" },
+            { "name": "Lat Pulldown", "sets": 3, "reps": "8-10" },
+            { "name": "Chest-Supported Row", "sets": 3, "reps": "10" },
+            { "name": "Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Triceps Pushdown", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Lower Body - A", "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "6-8" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Leg Curl", "sets": 3, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Upper Body - B", "exercises": [
+            { "name": "Incline DB Press", "sets": 4, "reps": "8" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "10" },
+            { "name": "Seated DB Shoulder Press", "sets": 3, "reps": "8" },
+            { "name": "EZ-Bar Curl", "sets": 3, "reps": "12" },
+            { "name": "Overhead Triceps Extension", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Lower Body - B", "exercises": [
+            { "name": "Romanian Deadlift", "sets": 4, "reps": "8" },
+            { "name": "Walking Lunges", "sets": 3, "reps": "10/leg" },
+            { "name": "Leg Extension", "sets": 3, "reps": "12" },
+            { "name": "Seated Calf Raises", "sets": 4, "reps": "15" }
+          ]}
+        ]
+      },
+      "5": {
+        "name": "5-Day Split (Intermediate)",
+        "progression": [
+          { "week": "Weeks 1-2", "focus": "Establish working weights, refine technique" },
+          { "week": "Weeks 3-4", "focus": "Increase reps within prescribed ranges" },
+          { "week": "Weeks 5-6", "focus": "Add load (2.5-5%) to main lifts" },
+          { "week": "Week 7", "focus": "Maintain load, focus on tempo and control" },
+          { "week": "Weeks 8-9", "focus": "Add volume (extra set on compound lifts)" },
+          { "week": "Weeks 10-11", "focus": "Push intensity (1-2 reps in reserve)" },
+          { "week": "Week 12", "focus": "Deload: reduce volume and intensity" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Push", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 4, "reps": "6-8" },
+            { "name": "Incline Dumbbell Press", "sets": 3, "reps": "8-10" },
+            { "name": "Seated Shoulder Press", "sets": 3, "reps": "8-10" },
+            { "name": "Dumbbell Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Triceps Pushdown", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Pull", "exercises": [
+            { "name": "Barbell Deadlift", "sets": 3, "reps": "5" },
+            { "name": "Lat Pulldown", "sets": 3, "reps": "8-10" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "10" },
+            { "name": "Face Pulls", "sets": 3, "reps": "15" },
+            { "name": "Dumbbell Curls", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 3, "label": "Legs", "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "6-8" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Leg Curl", "sets": 3, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Upper Body (Back-Dominant)", "exercises": [
+            { "name": "Incline Bench Press", "sets": 3, "reps": "8" },
+            { "name": "One-Arm Dumbbell Row", "sets": 3, "reps": "10" },
+            { "name": "Lat Pulldown", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Arms Superset", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Lower Body (Hamstring Focus)", "exercises": [
+            { "name": "Romanian Deadlift", "sets": 4, "reps": "8" },
+            { "name": "Walking Lunges", "sets": 3, "reps": "10/leg" },
+            { "name": "Leg Extension", "sets": 3, "reps": "12" },
+            { "name": "Seated Calf Raises", "sets": 4, "reps": "15" }
+          ]}
+        ]
+      }
+    },
+    "advanced": {
+      "5": {
+        "name": "5-Day Split (Advanced)",
+        "progression": [
+          { "week": "Weeks 1-2", "focus": "Establish heavy working weights, clean execution" },
+          { "week": "Weeks 3-4", "focus": "Increase reps within target ranges" },
+          { "week": "Weeks 5-6", "focus": "Increase load by 2.5-5% on main lifts" },
+          { "week": "Week 7", "focus": "Volume hold, focus on tempo and control" },
+          { "week": "Weeks 8-9", "focus": "Add intensity techniques (top sets, back-off sets)" },
+          { "week": "Weeks 10-11", "focus": "Push near failure (0-1 reps in reserve)" },
+          { "week": "Week 12", "focus": "Deload: reduce volume, maintain movement quality" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Push (Chest & Shoulders Emphasis)", "exercises": [
+            { "name": "Barbell Bench Press", "sets": 5, "reps": "5" },
+            { "name": "Incline Dumbbell Press", "sets": 4, "reps": "8" },
+            { "name": "Seated Shoulder Press", "sets": 4, "reps": "8" },
+            { "name": "Dumbbell Lateral Raises", "sets": 4, "reps": "15" },
+            { "name": "Overhead Triceps Extension", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Pull (Back Thickness & Width)", "exercises": [
+            { "name": "Deadlift", "sets": 4, "reps": "4" },
+            { "name": "Weighted Pull-ups / Lat Pulldown", "sets": 4, "reps": "8" },
+            { "name": "Barbell Row", "sets": 4, "reps": "8" },
+            { "name": "Face Pulls", "sets": 4, "reps": "15" },
+            { "name": "Barbell Curls", "sets": 3, "reps": "10" }
+          ]},
+          { "dayOfWeek": 3, "label": "Legs (Quad Dominant)", "exercises": [
+            { "name": "Back Squat", "sets": 5, "reps": "5" },
+            { "name": "Leg Press", "sets": 4, "reps": "10" },
+            { "name": "Lying Leg Curl", "sets": 4, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 5, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Upper Body (Accessory & Weak-Point Focus)", "exercises": [
+            { "name": "Incline Barbell Press", "sets": 4, "reps": "6" },
+            { "name": "Chest-Supported Row", "sets": 4, "reps": "10" },
+            { "name": "Dumbbell Shoulder Press", "sets": 4, "reps": "8" },
+            { "name": "Superset: Curl + Pushdown", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Lower Body (Hamstrings & Glutes)", "exercises": [
+            { "name": "Romanian Deadlift", "sets": 5, "reps": "6" },
+            { "name": "Walking Lunges", "sets": 3, "reps": "12/leg" },
+            { "name": "Leg Extension", "sets": 3, "reps": "15" },
+            { "name": "Seated Calf Raises", "sets": 5, "reps": "15" }
+          ]}
+        ]
+      }
+    }
+  },
+  "female": {
+    "beginner": {
+      "3": {
+        "name": "3-Day Split (Beginner)",
+        "progression": [
+          { "week": "Week 1", "focus": "Learn movements, light weights" },
+          { "week": "Week 2", "focus": "Add 2-3 reps per exercise" },
+          { "week": "Week 3", "focus": "Add 1 extra set" },
+          { "week": "Week 4", "focus": "Reduce rest time slightly" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Upper Body", "exercises": [
+            { "name": "Lat Pulldown", "sets": 3, "reps": "10-12" },
+            { "name": "Dumbbell Bench Press", "sets": 3, "reps": "10" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "12" },
+            { "name": "Dumbbell Shoulder Press", "sets": 2, "reps": "10" },
+            { "name": "Dumbbell Lateral Raises", "sets": 2, "reps": "15" },
+            { "name": "Triceps Rope Pushdown", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 3, "label": "Lower Body", "exercises": [
+            { "name": "Goblet Squat", "sets": 3, "reps": "12" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "10" },
+            { "name": "Seated Leg Curl", "sets": 2, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 3, "reps": "15" }
+          ]},
+          { "dayOfWeek": 6, "label": "Full Body", "exercises": [
+            { "name": "Hip Thrust (DB/Barbell)", "sets": 3, "reps": "12" },
+            { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10" },
+            { "name": "Walking Lunges", "sets": 2, "reps": "10/leg" },
+            { "name": "Lat Pulldown", "sets": 2, "reps": "12" },
+            { "name": "Plank", "sets": 3, "reps": "30-40 sec" }
+          ]}
+        ]
+      },
+      "4": {
+        "name": "4-Day Split (Beginner)",
+        "progression": [
+          { "week": "Week 1", "focus": "Learn movements" },
+          { "week": "Week 2", "focus": "Add 2-3 reps per exercise" },
+          { "week": "Week 3", "focus": "Add 1 extra set" },
+          { "week": "Week 4", "focus": "Reduce rest time slightly" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Upper Body (A)", "exercises": [
+            { "name": "Lat Pulldown", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Bench Press", "sets": 3, "reps": "10" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "12" },
+            { "name": "Dumbbell Shoulder Press", "sets": 2, "reps": "10" },
+            { "name": "Triceps Pushdown", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Lower Body (A)", "exercises": [
+            { "name": "Goblet Squat", "sets": 3, "reps": "12" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "10" },
+            { "name": "Standing Calf Raises", "sets": 3, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Upper Body (B)", "exercises": [
+            { "name": "Assisted Pull-ups / Pulldown", "sets": 3, "reps": "8-10" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "10" },
+            { "name": "Chest-Supported Row", "sets": 3, "reps": "12" },
+            { "name": "Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Dumbbell Curls", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Lower Body (B)", "exercises": [
+            { "name": "Hip Thrust", "sets": 3, "reps": "12" },
+            { "name": "Walking Lunges", "sets": 3, "reps": "10/leg" },
+            { "name": "Seated Leg Curl", "sets": 2, "reps": "12" },
+            { "name": "Seated Calf Raises", "sets": 3, "reps": "15" }
+          ]}
+        ]
+      }
+    },
+    "intermediate": {
+      "4": {
+        "name": "4-Day Split (Intermediate)",
+        "progression": [
+          { "week": "Weeks 1-2", "focus": "Re-establish working weights, refine technique" },
+          { "week": "Weeks 3-4", "focus": "Increase reps within target ranges" },
+          { "week": "Weeks 5-6", "focus": "Increase load 2-5%" },
+          { "week": "Week 7", "focus": "Maintain load, improve tempo and form" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Upper Body (A)", "exercises": [
+            { "name": "Lat Pulldown", "sets": 4, "reps": "8-10" },
+            { "name": "Barbell / DB Bench Press", "sets": 4, "reps": "8" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Shoulder Press", "sets": 3, "reps": "8" },
+            { "name": "Triceps Pushdown", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Lower Body (A)", "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "6-8" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8-10" },
+            { "name": "Standing Calf Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 4, "label": "Upper Body (B)", "exercises": [
+            { "name": "Assisted Pull-ups", "sets": 4, "reps": "8" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "8-10" },
+            { "name": "One-Arm DB Row", "sets": 3, "reps": "10" },
+            { "name": "Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Biceps Curls", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Lower Body (B)", "exercises": [
+            { "name": "Hip Thrust", "sets": 4, "reps": "10" },
+            { "name": "Walking Lunges", "sets": 3, "reps": "12/leg" },
+            { "name": "Seated Leg Curl", "sets": 3, "reps": "12" },
+            { "name": "Seated Calf Raises", "sets": 4, "reps": "15" }
+          ]}
+        ]
+      },
+      "5": {
+        "name": "5-Day Split (Intermediate)",
+        "progression": [
+          { "week": "Menstrual (days 1-5)", "focus": "Recovery & technique - reduce load 10-20%, keep volume low" },
+          { "week": "Follicular (days 6-13)", "focus": "Strength & progression - increase reps or load (2-5%)" },
+          { "week": "Ovulatory (days 14-16)", "focus": "Peak output - heaviest lifts, best energy" },
+          { "week": "Luteal (days 17-28)", "focus": "Control & volume - maintain weights, slower tempo" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Quads & Shoulders", "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "8" },
+            { "name": "Leg Press", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Shoulder Press", "sets": 3, "reps": "10" },
+            { "name": "Lateral Raises", "sets": 3, "reps": "15" },
+            { "name": "Leg Extension", "sets": 2, "reps": "12" }
+          ]},
+          { "dayOfWeek": 2, "label": "Back & Biceps", "exercises": [
+            { "name": "Lat Pulldown", "sets": 4, "reps": "10" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "12" },
+            { "name": "One-Arm DB Row", "sets": 3, "reps": "10" },
+            { "name": "Dumbbell Curl", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 3, "label": "Chest & Triceps", "exercises": [
+            { "name": "Dumbbell Bench Press", "sets": 4, "reps": "10" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "10" },
+            { "name": "Cable Fly", "sets": 2, "reps": "12" },
+            { "name": "Triceps Pushdown", "sets": 3, "reps": "12" }
+          ]},
+          { "dayOfWeek": 5, "label": "Glutes, Hamstrings & Calves", "exercises": [
+            { "name": "Hip Thrust", "sets": 4, "reps": "10" },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8" },
+            { "name": "Seated Leg Curl", "sets": 3, "reps": "12" },
+            { "name": "Standing Calf Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 6, "label": "Back, Chest & Shoulders", "exercises": [
+            { "name": "Assisted Pull-ups", "sets": 3, "reps": "8" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "10" },
+            { "name": "Cable Row", "sets": 3, "reps": "12" },
+            { "name": "Lateral Raises", "sets": 3, "reps": "15" }
+          ]}
+        ]
+      }
+    },
+    "advanced": {
+      "5": {
+        "name": "5-Day Split (Advanced)",
+        "progression": [
+          { "week": "Menstrual (days 1-5)", "focus": "Recovery & movement quality - reduce load 10-20%, keep volume low" },
+          { "week": "Follicular (days 6-13)", "focus": "Strength & progression - increase reps or load (2-5%)" },
+          { "week": "Ovulatory (days 14-16)", "focus": "Peak output - heaviest lifts, best energy" },
+          { "week": "Luteal (days 17-28)", "focus": "Control & volume - maintain weights, slower tempo" }
+        ],
+        "sessions": [
+          { "dayOfWeek": 1, "label": "Quads & Shoulders", "exercises": [
+            { "name": "Back Squat", "sets": 5, "reps": "6" },
+            { "name": "Hack Squat / Leg Press", "sets": 4, "reps": "10" },
+            { "name": "Shoulder Press", "sets": 4, "reps": "8" },
+            { "name": "Cable Lateral Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 2, "label": "Back & Biceps", "exercises": [
+            { "name": "Pull-ups / Pulldown", "sets": 4, "reps": "8" },
+            { "name": "Barbell Row", "sets": 4, "reps": "8" },
+            { "name": "Seated Cable Row", "sets": 3, "reps": "10" },
+            { "name": "EZ-Bar Curl", "sets": 3, "reps": "10" }
+          ]},
+          { "dayOfWeek": 3, "label": "Chest & Triceps", "exercises": [
+            { "name": "Barbell / DB Bench Press", "sets": 4, "reps": "8" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "8" },
+            { "name": "Cable Fly", "sets": 3, "reps": "12" },
+            { "name": "Skull Crushers", "sets": 3, "reps": "10" }
+          ]},
+          { "dayOfWeek": 5, "label": "Glutes & Hamstrings", "exercises": [
+            { "name": "Hip Thrust", "sets": 5, "reps": "8" },
+            { "name": "Romanian Deadlift", "sets": 4, "reps": "8" },
+            { "name": "Bulgarian Split Squat", "sets": 3, "reps": "10/leg" },
+            { "name": "Seated Calf Raises", "sets": 4, "reps": "15" }
+          ]},
+          { "dayOfWeek": 6, "label": "Back, Chest & Shoulders", "exercises": [
+            { "name": "Pull-ups", "sets": 3, "reps": "8" },
+            { "name": "Incline DB Press", "sets": 3, "reps": "10" },
+            { "name": "Chest-Supported Row", "sets": 3, "reps": "10" },
+            { "name": "Lateral Raises", "sets": 4, "reps": "15" }
+          ]}
+        ]
+      }
+    }
+  }
+}

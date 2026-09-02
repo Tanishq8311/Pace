@@ -35,8 +35,21 @@ export type ProfileRow = {
 
 export type ProfileInsert = Omit<ProfileRow, "updated_at">;
 
-// Hand-written to match supabase/migrations/0001_profiles.sql - this is a single
-// table, not worth wiring up `supabase gen types` for yet (see architecture plan).
+export type CycleStateRow = {
+  user_id: string;
+  cycle_started_at: string;
+  last_recalculated_at: string | null;
+  recalculated_at_weight_kg: number | null;
+};
+
+export type CycleStateInsert = Partial<
+  Omit<CycleStateRow, "user_id" | "cycle_started_at">
+> &
+  Pick<CycleStateRow, "user_id"> &
+  Partial<Pick<CycleStateRow, "cycle_started_at">>;
+
+// Hand-written to match supabase/migrations/*.sql - a handful of small tables,
+// not worth wiring up `supabase gen types` for yet (see architecture plan).
 // Relationships/Views/Functions are required by postgrest-js's GenericSchema shape
 // even when empty.
 export type Database = {
@@ -46,6 +59,12 @@ export type Database = {
         Row: ProfileRow;
         Insert: ProfileInsert;
         Update: Partial<ProfileInsert>;
+        Relationships: [];
+      };
+      cycle_state: {
+        Row: CycleStateRow;
+        Insert: CycleStateInsert;
+        Update: Partial<CycleStateInsert>;
         Relationships: [];
       };
     };

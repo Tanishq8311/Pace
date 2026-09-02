@@ -87,5 +87,17 @@ export async function saveOnboarding(formData: FormData) {
     redirect("/onboarding?error=" + encodeURIComponent(error.message));
   }
 
+  // Start the cycle on first onboarding only - resubmitting onboarding (e.g. to
+  // fix a typo) shouldn't reset an in-progress cycle back to day 1.
+  const { data: existingCycle } = await supabase
+    .from("cycle_state")
+    .select("user_id")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (!existingCycle) {
+    await supabase.from("cycle_state").insert({ user_id: user.id });
+  }
+
   redirect("/plan");
 }
